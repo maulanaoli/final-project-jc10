@@ -1,0 +1,36 @@
+.picgmni,
+.picgmki {
+  width: 140px;
+  height: 130px;
+}
+.pichmi {
+  width: 100px;
+  height: 150px;
+}
+.logo-organ {
+  position: absolute;
+  top: 30%;
+  left: 35%;
+}
+img {
+  margin: 0px 20px;
+  padding: 0px;
+  border-radius: 0%;
+  -webkit-transition: -webkit-transform 0.1s ease-in-out;
+  transition: transform 1s ease-in-out;
+}
+img:hover {
+  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);
+  cursor: pointer;
+}
+.text-atas {
+  text-align: center;
+  padding-top: 50px;
+}
+.text-bawah {
+  left: 41%;
+  padding-top: 50px;
+  position: absolute;
+  bottom: 35%;
+}
