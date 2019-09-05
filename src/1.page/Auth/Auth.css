@@ -1,0 +1,54 @@
+.auth {
+  margin-top: 5%;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  padding: 15px;
+}
+
+.auth-left {
+  margin-top: 4%;
+  color: #fff;
+}
+
+.auth-right {
+  background: #f8f9fa;
+  border-top-left-radius: 10% 50%;
+  border-bottom-left-radius: 10% 50%;
+}
+
+.btn-register {
+  background: red;
+  color: #fff;
+  border-radius: 15px;
+}
+
+.btn-register:hover {
+  background: #fff;
+  color: red;
+  border: 1px solid red;
+}
+
+.tab-auth {
+  background: #fff;
+  color: red;
+  border-radius: 15px;
+  width: 50%;
+  margin: auto;
+}
+
+.tab-auth div:hover {
+  cursor: pointer;
+}
+
+.active-auth {
+  background: red;
+  border-radius: 15px;
+  color: #fff;
+  padding: 5px;
+}
+
+.invalid-input {
+  border: 1px solid red;
+}

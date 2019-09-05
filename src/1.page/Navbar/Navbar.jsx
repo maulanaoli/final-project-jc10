@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -18,7 +19,8 @@ import "./Navbar.css";
 
 class NavbarPage extends Component {
   state = {
-    isOpen: false
+    isOpen: false,
+    warna: ""
   };
 
   toggleCollapse = () => {
