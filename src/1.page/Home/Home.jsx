@@ -6,38 +6,50 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { imgClick } from "../../redux/1.actions/userActions";
 import "./Home.css";
-var a = "red";
-var b = "green";
-var c = "blue";
+var gmni = {
+  color: "red",
+  organ: "gmni",
+  nickkname: "Bung & Sarinah"
+};
+var hmi = {
+  color: "green",
+  organ: "hmi",
+  nickkname: "Kanda & Dinda"
+};
+var gmki = {
+  color: "blue",
+  organ: "gmki",
+  nickkname: "Boy & Girls"
+};
 class Home extends Component {
   render() {
     return (
       <div>
-        <h1 className="text-atas">Organsasi</h1>
+        <h1 className="text-atas">Choose your organization</h1>
         <div className="logo-organ">
           <Link to="/auth">
             <img
               src={pic2}
               className="pichmi"
-              onClick={() => this.props.imgClick(b)}
+              onClick={() => this.props.imgClick(hmi)}
             />
           </Link>
           <Link to="/auth">
             <img
               src={pic1}
               className="picgmni"
-              onClick={() => this.props.imgClick(a)}
+              onClick={() => this.props.imgClick(gmni)}
             />
           </Link>
           <Link to="/auth">
             <img
               src={pic3}
               className="picgmki"
-              onClick={() => this.props.imgClick(c)}
+              onClick={() => this.props.imgClick(gmki)}
             />
           </Link>
         </div>
-        <h1 className="text-bawah">Linta Indonesia</h1>
+        <h1 className="text-bawah"></h1>
       </div>
     );
   }

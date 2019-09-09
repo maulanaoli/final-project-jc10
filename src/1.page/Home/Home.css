@@ -8,7 +8,7 @@
   height: 150px;
 }
 .logo-organ {
-  position: absolute;
+  position: relative;
   top: 30%;
   left: 35%;
 }
@@ -33,4 +33,18 @@ img:hover {
   padding-top: 50px;
   position: absolute;
   bottom: 35%;
+}
+
+body {
+  background: #ed213a; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #93291e,
+    #ed213a
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #93291e,
+    #ed213a
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }

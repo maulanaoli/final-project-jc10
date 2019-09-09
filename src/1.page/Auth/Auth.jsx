@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./Auth.css";
 import { connect } from "react-redux";
-
+import { onLogin, onRegister } from "./../../redux/1.actions";
 import pic2 from "../Home/hmi.png";
+import swal from "sweetalert";
 
 class Auth extends Component {
   state = {
@@ -14,195 +15,182 @@ class Auth extends Component {
     loginUsername: "",
     loginPassword: "",
     isSame: true,
-    color: ""
+    color: this.props.logoClicked,
+    nickName: this.props.nickname,
+    clickLog: false
   };
-  componentDidMount() {
-    this.setState({ color: this.props.logoClicked });
-  }
 
   passwordChecker = () => {
     if (!this.state.isSame) {
       return <div className="alert alert-danger">Password belom sama</div>;
     }
   };
+  onLoginBtnHandler = () => {
+    // let loginObj = {
+    //     username : this.state.loginUsername,
+    //     password : this.state.loginPassword
+    // }
+    // this.props.onLogout()
+    this.props.onLogin({
+      asalNama: this.state.loginUsername,
+      asalKunci: this.state.loginPassword
+    });
+  };
+
+  onRegisterBtnHandler = () => {
+    if (
+      this.state.repeatPassword !== this.state.registerPassword ||
+      (this.state.repeatPassword == "" && this.state.registerPassword == "")
+    ) {
+      this.setState({ isSame: false });
+    }
+    if (!this.state.registerEmail) {
+      this.refs.registerEmail.className += " invalid-input";
+    }
+    if (!this.state.registerUsername) {
+      this.refs.registerUsername.className += " invalid-input";
+    }
+    if (!this.state.repeatPassword) {
+      this.refs.repeatPassword.className += " invalid-input";
+    }
+    if (!this.state.registerPassword) {
+      this.refs.registerPassword.className += " invalid-input";
+    }
+    if (
+      this.state.registerEmail &&
+      this.state.registerPassword &&
+      this.state.repeatPassword &&
+      this.state.registerUsername
+    ) {
+      let registerObj = {
+        username: this.state.registerUsername,
+        password: this.state.registerPassword,
+        email: this.state.registerEmail
+      };
+
+      this.props.onRegister(registerObj);
+    } else {
+      swal("input");
+    }
+  };
+
   render() {
     console.log(this.props.logoClicked);
     return (
-      <div
-        className="container auth"
-        style={{
-          background: `-webkit-linear-gradient(left, ${this.state.color}, #313131, ${this.state.color}, #313131)`
-        }}
-      >
-        <div className="row">
-          <div className="col-3 text-center auth-left">
-            <h3>Welcom</h3>
-            <p>Komunikasi antar organisasi dengan mudah</p>
-            <br />
-            <br />
-            <div className="tab-auth">
-              <div
-                className={
-                  "d-inline-block m-1 text-center " +
-                  (this.state.page == "LOGIN" ? "active-auth" : "")
-                }
-                onClick={() => this.setState({ page: "LOGIN" })}
-              >
-                Login
+      <div class="bodyy">
+        <div
+          class={
+            "container" + (this.state.clickLog ? " right-panel-active" : "")
+          }
+          id="container"
+        >
+          <div class="form-container sign-up-container">
+            <form action="#">
+              <h1>Create Account</h1>
+              <div class="social-container">
+                <a href="#" class="social">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social">
+                  <i class="fab fa-google-plus-g"></i>
+                </a>
+                <a href="#" class="social">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
               </div>
-              <div
-                className={
-                  "d-inline-block m-1 text-center " +
-                  (this.state.page == "REGISTER" ? "active-auth" : "")
-                }
-                onClick={() => this.setState({ page: "REGISTER" })}
-              >
-                Register
+              <span>or use your email for registration</span>
+              <input type="text" placeholder="Name" />
+              <input type="email" placeholder="Email" />
+              <input type="password" placeholder="Password" />
+              <button>Sign Up</button>
+            </form>
+          </div>
+          <div class="form-container sign-in-container">
+            <form action="#">
+              <h1>Sign in</h1>
+              <div class="social-container">
+                <a href="#" class="social">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social">
+                  <i class="fab fa-google-plus-g"></i>
+                </a>
+                <a href="#" class="social">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+              </div>
+              <span>or use your account</span>
+              <input type="email" placeholder="Email" />
+              <input type="password" placeholder="Password" />
+              <a href="#">Forgot your password?</a>
+              <button>Sign In</button>
+            </form>
+          </div>
+          <div class="overlay-container">
+            <div
+              class="overlay"
+              style={{
+                background: `-webkit-linear-gradient(left,${this.state.color},${this.state.color}, #3618a1,${this.state.color},${this.state.color} )`
+              }}
+            >
+              <div class="overlay-panel overlay-left">
+                <h1>Welcome Back! {this.state.nickName}</h1>
+                <p>
+                  To keep connected with us please login with your personal info
+                </p>
+                <button
+                  class="ghost"
+                  id="signIn"
+                  onClick={() => this.setState({ clickLog: false })}
+                >
+                  Sign In
+                </button>
+              </div>
+              <div class="overlay-panel overlay-right">
+                <h1>Hello, </h1>
+                <br />
+                <h1>{this.state.nickName}</h1>
+                <p>Enter your personal details and start journey with us</p>
+                <button
+                  class="ghost"
+                  id="signUp"
+                  onClick={() => this.setState({ clickLog: true })}
+                >
+                  Sign Up
+                </button>
               </div>
             </div>
           </div>
-          <div className="col-9 auth-right text-center pb-5">
-            {this.state.page == "REGISTER" ? (
-              <div className="container-fluid">
-                <h3
-                  className="pb-3"
-                  style={{ color: "#495057", marginTop: "8%" }}
-                >
-                  Register Now!
-                </h3>
-                <div className="row">
-                  <div className="col-6">
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        ref="registerUsername"
-                        onChange={e =>
-                          this.setState({ registerUsername: e.target.value })
-                        }
-                        className="form-control"
-                        placeholder="Username"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-6">
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        ref="registerEmail"
-                        onChange={e =>
-                          this.setState({ registerEmail: e.target.value })
-                        }
-                        className="form-control"
-                        placeholder="Email"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-6">
-                    <div className="form-group">
-                      <input
-                        type="password"
-                        ref="registerPassword"
-                        onChange={e =>
-                          this.setState({ registerPassword: e.target.value })
-                        }
-                        className="form-control"
-                        placeholder="Password"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-6">
-                    <div className="form-group">
-                      <input
-                        type="password"
-                        ref="repeatPassword"
-                        onChange={e =>
-                          this.setState({ repeatPassword: e.target.value })
-                        }
-                        className="form-control"
-                        placeholder="Repeat Password"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-8">{this.passwordChecker()}</div>
-                  <div className="col-4">
-                    {!this.props.isLoading ? (
-                      <input
-                        type="button"
-                        onClick={this.onRegisterBtnHandler}
-                        ref="btnLogin"
-                        className="btn float-right btn-register"
-                        value="Register"
-                      />
-                    ) : (
-                      <div className="spinner-border text-primary">
-                        <span className="sr-only">Loading...</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="container-fluid">
-                <h3
-                  className="pb-3"
-                  style={{ color: "#495057", marginTop: "8%" }}
-                >
-                  Login Now!
-                </h3>
-                <div className="row">
-                  <div className="col-6">
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Username"
-                        onChange={e =>
-                          this.setState({ loginUsername: e.target.value })
-                        }
-                      />
-                    </div>
-                  </div>
-                  <div className="col-6">
-                    <div className="form-group">
-                      <input
-                        type="password"
-                        className="form-control"
-                        placeholder="Password"
-                        onKeyDown={this.onBtnEnter}
-                        onChange={e =>
-                          this.setState({ loginPassword: e.target.value })
-                        }
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-12">
-                    <input
-                      type="button"
-                      className="btn float-right btn-register"
-                      value="Login"
-                      ref="loginBtn"
-                      onClick={this.onLoginBtnHandler}
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
         </div>
+
+        <footer>
+          <p>
+            Created with <i class="fa fa-heart"></i> by
+            <a target="_blank" href="https://florin-pop.com">
+              Florin Pop
+            </a>
+            - Read how I created this and how you can join the challenge
+            <a
+              target="_blank"
+              href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/"
+            >
+              here
+            </a>
+            .
+          </p>
+        </footer>
       </div>
     );
   }
 }
 const mapStateToProps = state => {
   return {
-    logoClicked: state.user.logoImg
+    logoClicked: state.user.logoImg,
+    nickname: state.user.nickName
   };
 };
 
-export default connect(mapStateToProps)(Auth);
+export default connect(
+  mapStateToProps,
+  { onLogin, onRegister }
+)(Auth);
